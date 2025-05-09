@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Registration Tests]" guice-stage="DEVELOPMENT">
+  <parameter name="browser" value="chrome"/>
+  <test thread-count="5" name="Registration Tests(failed)">
+    <classes>
+      <class name="tests.RegistrationTest">
+        <methods>
+          <include name="testValidRegistration"/>
+          <include name="navigateToRegistration"/>
+          <include name="testDuplicateUsername"/>
+          <include name="tearDown"/>
+          <include name="setUp"/>
+        </methods>
+      </class> <!-- tests.RegistrationTest -->
+    </classes>
+  </test> <!-- Registration Tests(failed) -->
+</suite> <!-- Failed suite [Registration Tests] -->

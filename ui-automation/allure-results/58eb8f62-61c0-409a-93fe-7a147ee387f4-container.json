@@ -1,0 +1,1 @@
+{"uuid":"58eb8f62-61c0-409a-93fe-7a147ee387f4","name":"tests.OpenAccountTest.login","children":["dd8a43d0-abf0-47a3-b450-d036eb175ff4"],"description":"","befores":[{"name":"login","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1746826030521,"stop":1746826032200}],"afters":[],"start":1746826030521,"stop":1746826032200}
