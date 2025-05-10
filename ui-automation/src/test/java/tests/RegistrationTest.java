@@ -12,7 +12,6 @@ import java.util.Date;
 public class RegistrationTest extends BaseTest {
     private RegistrationPage registrationPage;
     private String uniqueUsername;
-    public static String registeredName;
     
     @BeforeMethod
     public void navigateToRegistration() {
@@ -46,7 +45,6 @@ public class RegistrationTest extends BaseTest {
         Assert.assertTrue(registrationPage.isSuccessMessageDisplayed(),
             "Registration success message not shown");
         
-        registeredName = uniqueUsername;
 
     }
     
@@ -56,7 +54,7 @@ public class RegistrationTest extends BaseTest {
         		   "John", "Doe", "", 
                    "Austin", "", "73301", 
                    "5125551234", "123456789", 
-                   uniqueUsername, 
+                   "user_20250510_0924", 
                    "password123", "password123"
         );
         Assert.assertTrue(registrationPage.isErrorMessageDisplayed(),
@@ -70,7 +68,7 @@ public class RegistrationTest extends BaseTest {
             "Jane", "Smith", "456 Oak Ave", 
             "Dallas", "TX", "75201", 
             "2145556789", "987654321", 
-            uniqueUsername, 
+            "user_20250510_0924", 
             "password456", "password456"
         );
         Assert.assertTrue(registrationPage.isErrorMessageDisplayed(),

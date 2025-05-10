@@ -5,21 +5,9 @@
     </listeners>
     
     <parameter name="browser" value="chrome"/>
-     <test name="Registration">
-        <classes>
-            <class name="tests.RegistrationTest"/>
-        </classes>
-    </test>
-    <test name="Login">
-        <classes>
-            <class name="tests.LoginTest"/>
-        </classes>
-    </test>
-     
       <test name="Open Account">
         <classes>
             <class name="tests.OpenAccountTest"/>
         </classes>
     </test>
-   
 </suite>

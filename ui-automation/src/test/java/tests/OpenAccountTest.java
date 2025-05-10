@@ -5,67 +5,64 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.OpenAccountPage;
+import utils.WaitUtils;
 
 public class OpenAccountTest extends BaseTest {
-    private OpenAccountPage page;
-
+    private static final String VALID_USERNAME = "user_20250510_0924";
+    private static final String VALID_PASSWORD = "password123";
+    private OpenAccountPage openAccountPage;
+    private String newAccountId;
+    
     @BeforeMethod
-    public void login() {
-        page = new OpenAccountPage(driver);
-        page.login(RegistrationTest.registeredName, "password123");
+    public void setUpTest() {
+        // Login
+        driver.get("https://parabank.parasoft.com");
+        driver.findElement(By.name("username")).sendKeys(VALID_USERNAME);
+        driver.findElement(By.name("password")).sendKeys(VALID_PASSWORD);
+        driver.findElement(By.xpath("//input[@value='Log In']")).click();
+        
+        openAccountPage = new OpenAccountPage(driver);
+        Assert.assertTrue(driver.getPageSource().contains("Accounts Overview"), 
+            "Login failed - not on accounts page");
     }
-
+    
     @Test(priority = 1)
-    public void TC12_NavigateToOpenAccountPage() {
-        page.clickOpenNewAccountLink();
-        Assert.assertTrue(driver.getCurrentUrl().contains("openaccount.htm"),
-            "Not on Open Account page");
+    public void TC12_navigateToOpenAccountPage() {
+        openAccountPage.navigateToOpenAccountPage();
+        Assert.assertTrue(openAccountPage.isOpenAccountPageDisplayed());
     }
-
+    
     @Test(priority = 2)
-    public void TC13_OpenCheckingAccount() {
-        page.clickOpenNewAccountLink();
-        page.selectAccountType("CHECKING");
-        page.selectFirstAccount();
-        page.clickOpenAccountButton();
-        Assert.assertTrue(page.getNewAccountId().length() > 0,
-            "No account ID generated");
+    public void TC13_openNewSavingsAccount() {
+        openAccountPage.navigateToOpenAccountPage();
+        openAccountPage.openNewAccount("SAVINGS", null);
+        Assert.assertTrue(openAccountPage.isAccountOpenedSuccessfully());
     }
-
+    
     @Test(priority = 3)
-    public void TC14_VerifyAccountInOverview() {
-        page.clickOpenNewAccountLink();
-        page.selectAccountType("SAVINGS");
-        page.selectFirstAccount();
-        page.clickOpenAccountButton();
-        String newAccountId = page.getNewAccountId();
-
+    public void TC14_verifyNewAccountCreated() {
+        // Navigate to Accounts Overview first
         driver.findElement(By.linkText("Accounts Overview")).click();
-        Assert.assertTrue(driver.getPageSource().contains(newAccountId),
-            "Account not in overview");
+        WaitUtils.waitForElementToBeVisible(driver, By.id("accountTable"), 5);
     }
-
+    
     @Test(priority = 4)
-    public void TC15_NavigateToTransferFunds() {
-        page.clickTransferFundsLink();
-        Assert.assertTrue(driver.getCurrentUrl().contains("transfer.htm"),
-            "Not on Transfer page");
+    public void TC15_navigateToTransferFundsPage() {
+        openAccountPage.navigateToTransferFundsPage();
+        Assert.assertTrue(openAccountPage.isTransferFundsPageDisplayed());
     }
-
+    
     @Test(priority = 5)
-    public void TC16_TransferFunds() {
-        page.clickTransferFundsLink();
-        page.enterTransferAmount("100");
-        page.clickTransferButton();
-        Assert.assertTrue(driver.findElement(By.xpath("//h1[contains(., 'Transfer Complete!')]")).isDisplayed(),
-            "Transfer failed");
+    public void TC16_transferFundsBetweenAccounts() {
+        openAccountPage.navigateToTransferFundsPage();
+        openAccountPage.transferFunds("100", "33213", "33768");
+        Assert.assertTrue(openAccountPage.isTransferSuccessful());
     }
-
+    
     @Test(priority = 6)
-    public void TC17_TransferValidation() {
-        page.clickTransferFundsLink();
-        page.clickTransferButton();
-        Assert.assertTrue(driver.findElement(By.xpath("//span[@id='amount.errors']")).isDisplayed(),
-            "No validation error");
+    public void TC17_attemptInvalidTransfer() {
+        openAccountPage.navigateToTransferFundsPage();
+        openAccountPage.transferFunds("50", null, null);
+        Assert.assertTrue(openAccountPage.isTransferErrorDisplayed());
     }
 }

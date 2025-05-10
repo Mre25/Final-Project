@@ -5,27 +5,12 @@
   <listeners>
     <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
   </listeners>
-  <test thread-count="5" name="Login(failed)">
-    <classes>
-      <class name="tests.LoginTest">
-        <methods>
-          <include name="navigateToLogin"/>
-          <include name="testErrorMessageContent"/>
-          <include name="tearDown"/>
-          <include name="setUp"/>
-        </methods>
-      </class> <!-- tests.LoginTest -->
-    </classes>
-  </test> <!-- Login(failed) -->
   <test thread-count="5" name="Open Account(failed)">
     <classes>
       <class name="tests.OpenAccountTest">
         <methods>
-          <include name="TC14_VerifyAccountInOverview"/>
-          <include name="login"/>
-          <include name="TC16_TransferFunds"/>
-          <include name="TC13_OpenCheckingAccount"/>
-          <include name="TC17_TransferValidation"/>
+          <include name="setUpTest"/>
+          <include name="TC17_attemptInvalidTransfer"/>
           <include name="tearDown"/>
           <include name="setUp"/>
         </methods>

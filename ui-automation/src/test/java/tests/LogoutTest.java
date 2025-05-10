@@ -13,7 +13,7 @@ public class LogoutTest extends BaseTest {
     public void loginFirst() {
         // Perform login (same as AccountOverviewTest)
         driver.get("https://parabank.parasoft.com");
-        new LoginPage(driver).login(RegistrationTest.registeredName,"password123");
+        new LoginPage(driver).login("user_20250510_0924","password123");
         logoutPage = new LogoutPage(driver);
     }
 

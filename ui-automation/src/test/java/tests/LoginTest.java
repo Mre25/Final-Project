@@ -17,7 +17,7 @@ public class LoginTest extends BaseTest {
     
     @Test(priority = 1, description = "TC01: Verify valid login with correct credentials")
     public void testValidLogin() {
-        driver.findElement(By.name("username")).sendKeys(RegistrationTest.registeredName);
+        driver.findElement(By.name("username")).sendKeys("user_20250510_0924");
         driver.findElement(By.name("password")).sendKeys("password123");
         driver.findElement(By.xpath("//input[@value='Log In']")).click();
         
